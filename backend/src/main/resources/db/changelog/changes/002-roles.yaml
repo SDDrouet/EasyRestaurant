@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: "Stephen Drouet"
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: name, type: VARCHAR(20), constraints: { nullable: false, unique: true } }
+              - column: { name: description, type: VARCHAR(255) }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }

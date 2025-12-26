@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 12-seed-roles
+      author: system
+      changes:
+        - sqlFile:
+            path: db/changelog/data/roles.sql
+
+  - changeSet:
+      id: 12-seed-permissions
+      author: system
+      changes:
+        - sqlFile:
+            path: db/changelog/data/permissions.sql
+
+  - changeSet:
+      id: 12-seed-role-permissions
+      author: system
+      changes:
+        - sqlFile:
+            path: db/changelog/data/assign-role-permissions.sql

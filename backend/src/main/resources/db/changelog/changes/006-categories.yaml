@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006
+      author: "Stephen Drouet"
+      changes:
+        - createTable:
+            tableName: categories
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: name, type: VARCHAR(50), constraints: { nullable: false, unique: true } }
+              - column: { name: description, type: TEXT }
+              - column: { name: icon, type: VARCHAR(100) }
+              - column: { name: display_order, type: INTEGER, defaultValueNumeric: '0' }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              - column: { name: created_by, type: BIGINT }
+              - column: { name: updated_by, type: BIGINT }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+
+        - addForeignKeyConstraint:
+            constraintName: fk_categories_created_by_users
+            baseTableName: categories
+            baseColumnNames: created_by
+            referencedTableName: users
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_categories_updated_by_users
+            baseTableName: categories
+            baseColumnNames: updated_by
+            referencedTableName: users
+            referencedColumnNames: id

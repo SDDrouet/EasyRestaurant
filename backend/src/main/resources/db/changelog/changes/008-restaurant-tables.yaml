@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008
+      author: "Stephen Drouet"
+      changes:
+        - createTable:
+            tableName: restaurant_tables
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true } }
+              - column: { name: table_number, type: VARCHAR(10), constraints: { nullable: false, unique: true } }
+              - column: { name: capacity, type: INTEGER, constraints: { nullable: false } }
+              - column: { name: status, type: VARCHAR(20), constraints: { nullable: false } }
+              - column: { name: section, type: VARCHAR(50) }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true }
+              - column: { name: created_by, type: BIGINT }
+              - column: { name: updated_by, type: BIGINT }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+              - column: { name: updated_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP }
+
+        - addForeignKeyConstraint:
+            constraintName: fk_restaurant_tables_created_by_users
+            baseTableName: restaurant_tables
+            baseColumnNames: created_by
+            referencedTableName: users
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_restaurant_tables_updated_by_users
+            baseTableName: restaurant_tables
+            baseColumnNames: updated_by
+            referencedTableName: users
+            referencedColumnNames: id

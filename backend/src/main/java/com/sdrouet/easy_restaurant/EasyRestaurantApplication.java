@@ -1,9 +1,12 @@
 package com.sdrouet.easy_restaurant;
 
+import com.sdrouet.easy_restaurant.config.security.jwt.JwtProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties(JwtProperties.class)
 public class EasyRestaurantApplication {
 
 	public static void main(String[] args) {

@@ -1,6 +1,7 @@
-# RestoFlow - Sistema de Comandas y Gestión de Cocina
+# EasyRestaurant - Sistema de Comandas y Gestión de Cocina
 
 ## 📋 Tabla de Contenidos
+
 1. [Descripción General](#descripción-general)
 2. [Actores y Roles del Sistema](#actores-y-roles-del-sistema)
 3. [Requisitos Funcionales](#requisitos-funcionales)
@@ -16,9 +17,10 @@
 
 ## 📖 Descripción General
 
-**RestoFlow** es un sistema integral de gestión de comandas para restaurantes que permite la comunicación en tiempo real entre meseros y cocina, optimizando el flujo de trabajo y mejorando la experiencia del cliente.
+**EasyRestaurant** es un sistema integral de gestión de comandas para restaurantes que permite la comunicación en tiempo real entre meseros y cocina, optimizando el flujo de trabajo y mejorando la experiencia del cliente.
 
 ### Objetivos del Sistema
+
 - Digitalizar el proceso de toma de pedidos
 - Comunicación instantánea entre sala y cocina
 - Gestión eficiente del estado de las mesas
@@ -30,7 +32,9 @@
 ## 👥 Actores y Roles del Sistema
 
 ### 1. **ADMIN** (Administrador)
+
 **Responsabilidades:**
+
 - Gestión completa del sistema
 - Configuración de usuarios y roles
 - Administración del menú (productos y categorías)
@@ -38,43 +42,52 @@
 - Gestión de mesas y configuración del restaurante
 
 **Accesos:**
-- Panel de administración web (escritorio)
+
+- Panel de administración
 - Todas las funcionalidades del sistema
 
 ---
 
 ### 2. **WAITER** (Mesero)
+
 **Responsabilidades:**
+
 - Gestión del estado de las mesas
 - Toma y envío de pedidos
 - Seguimiento del estado de los platos
 - Generación y cierre de cuentas
 
 **Accesos:**
-- Aplicación móvil/tablet
+
 - Vista de mesas y comandas asignadas
 
 ---
 
 ### 3. **KITCHEN** (Cocina)
+
 **Responsabilidades:**
+
 - Recepción de pedidos en tiempo real
 - Actualización del estado de preparación de platos
 - Notificación de platos listos para servir
 
 **Accesos:**
-- Pantalla de cocina (KDS - Kitchen Display System)
+
+- Pantalla de cocina
 - Vista de pedidos activos
 
 ---
 
-### 4. **CASHIER** (Cajero) - *Opcional para MVP*
+### 4. **CASHIER** (Cajero) - _Opcional para MVP_
+
 **Responsabilidades:**
+
 - Procesamiento de pagos
 - Cierre de caja
 - Generación de reportes de ventas
 
 **Accesos:**
+
 - Terminal de punto de venta
 - Vista de cuentas pendientes
 
@@ -83,18 +96,21 @@
 ## ✅ Requisitos Funcionales
 
 ### RF-001: Autenticación y Autorización
+
 - El sistema debe permitir login con usuario y contraseña
 - Debe implementar autenticación basada en JWT
 - Debe validar permisos según el rol del usuario
 - Debe cerrar sesión automáticamente después de inactividad
 
 ### RF-002: Gestión de Usuarios (ADMIN)
+
 - Crear, editar y eliminar usuarios
 - Asignar roles a usuarios
 - Cambiar contraseñas
 - Activar/desactivar cuentas
 
 ### RF-003: Gestión de Menú (ADMIN)
+
 - Crear, editar y eliminar categorías
 - Crear, editar y eliminar productos
 - Asignar productos a categorías
@@ -103,6 +119,7 @@
 - Activar/desactivar productos
 
 ### RF-004: Gestión de Mesas (ADMIN/WAITER)
+
 - Visualizar estado de todas las mesas
 - Estados: Disponible, Ocupada, Reservada, Sucia
 - Asignar mesa a un mesero
@@ -110,6 +127,7 @@
 - Configurar número y disposición de mesas
 
 ### RF-005: Toma de Pedidos (WAITER)
+
 - Abrir una mesa (cambiar estado a Ocupada)
 - Seleccionar productos del menú
 - Agregar productos al pedido
@@ -119,6 +137,7 @@
 - Modificar pedido antes de ser enviado
 
 ### RF-006: Gestión de Comandas (WAITER)
+
 - Ver lista de pedidos activos de sus mesas
 - Consultar estado de cada plato
 - Recibir notificaciones cuando platos estén listos
@@ -126,6 +145,7 @@
 - Agregar productos adicionales a comandas existentes
 
 ### RF-007: Display de Cocina (KITCHEN)
+
 - Recibir pedidos en tiempo real
 - Visualizar pedidos en formato Kanban
 - Estados: Pendiente, En Preparación, Listo
@@ -135,6 +155,7 @@
 - Ver tiempo transcurrido desde que se ordenó
 
 ### RF-008: Cierre de Cuenta (WAITER)
+
 - Generar cuenta detallada con todos los productos
 - Calcular subtotal, impuestos y total
 - Aplicar descuentos (si tiene permiso)
@@ -143,6 +164,7 @@
 - Liberar mesa al confirmar pago
 
 ### RF-009: Dashboard y Reportes (ADMIN)
+
 - Ver ventas del día en tiempo real
 - Productos más vendidos
 - Promedio de consumo por mesa
@@ -152,6 +174,7 @@
 - Exportar reportes a PDF/Excel
 
 ### RF-010: Notificaciones en Tiempo Real
+
 - Notificar a cocina cuando llega nuevo pedido
 - Notificar a mesero cuando plato está listo
 - Notificar a admin sobre eventos importantes
@@ -161,27 +184,32 @@
 ## 🔧 Requisitos No Funcionales
 
 ### RNF-001: Rendimiento
+
 - El sistema debe soportar al menos 50 mesas simultáneas
 - Latencia máxima de 2 segundos para actualización en tiempo real
 - Tiempo de respuesta de APIs menor a 500ms
 
 ### RNF-002: Seguridad
+
 - Las contraseñas deben almacenarse con encriptación BCrypt
 - Comunicación HTTPS obligatoria en producción
 - Tokens JWT con expiración de 8 horas
 - Validación de entrada en todos los endpoints
 
 ### RNF-003: Disponibilidad
+
 - Disponibilidad del sistema 99% durante horarios de operación
 - Manejo de errores con mensajes descriptivos
 - Logs de todas las operaciones críticas
 
 ### RNF-004: Usabilidad
+
 - Interfaz responsiva para móvil y tablet
 - Accesibilidad según estándares WCAG 2.1
 - Tiempo de aprendizaje menor a 30 minutos para nuevos usuarios
 
 ### RNF-005: Escalabilidad
+
 - Arquitectura preparada para múltiples sucursales
 - Base de datos optimizada para crecimiento
 
@@ -190,6 +218,7 @@
 ## 🗄️ Modelo de Datos
 
 ### Entidad: User (Usuario)
+
 ```
 User
 ├── id: BIGINT [PK]
@@ -198,7 +227,6 @@ User
 ├── password: VARCHAR(255) [NOT NULL] (BCrypt hash)
 ├── first_name: VARCHAR(50) [NOT NULL]
 ├── last_name: VARCHAR(50) [NOT NULL]
-├── role_id: BIGINT [FK → Role] [NOT NULL]
 ├── is_active: BOOLEAN [DEFAULT true]
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ├── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
@@ -206,12 +234,14 @@ User
 ```
 
 **Relaciones:**
-- Un usuario pertenece a un rol (Many-to-One)
+
+- Un rol puede pertenecer a muchos usuarios (Many-to-Many)
 - Un usuario puede tener muchas órdenes (One-to-Many)
 
 ---
 
 ### Entidad: Role (Rol)
+
 ```
 Role
 ├── id: BIGINT [PK]
@@ -219,16 +249,32 @@ Role
 │   └── ENUM: ADMIN, WAITER, KITCHEN, CASHIER
 ├── description: VARCHAR(255)
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-└── updated_at: TIMESTAMP
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Relaciones:**
+
 - Un rol puede tener muchos usuarios (One-to-Many)
 - Un rol tiene muchos permisos (Many-to-Many)
 
 ---
 
+### Entidad: UserRole (Tabla Intermedia Usuario–Rol)
+
+```
+UserRole
+├── user_id: BIGINT [FK → User] [PK]
+├── role_id: BIGINT [FK → Role] [PK]
+└── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+```
+
+**Clave Primaria Compuesta:** (user_id, role_id)
+
+---
+
 ### Entidad: Permission (Permiso)
+
 ```
 Permission
 ├── id: BIGINT [PK]
@@ -238,21 +284,24 @@ Permission
 │   └── Ejemplos: ORDER, PRODUCT, USER, TABLE
 ├── action: VARCHAR(20) [NOT NULL]
 │   └── ENUM: CREATE, READ, UPDATE, DELETE, EXECUTE
-├── description: VARCHAR(255)
-└── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Relaciones:**
+
 - Un permiso puede estar asignado a muchos roles (Many-to-Many)
 
 ---
 
 ### Entidad: RolePermission (Tabla Intermedia)
+
 ```
 RolePermission
 ├── role_id: BIGINT [FK → Role] [PK]
 ├── permission_id: BIGINT [FK → Permission] [PK]
-└── assigned_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Clave Primaria Compuesta:** (role_id, permission_id)
@@ -260,6 +309,7 @@ RolePermission
 ---
 
 ### Entidad: Category (Categoría)
+
 ```
 Category
 ├── id: BIGINT [PK]
@@ -269,67 +319,76 @@ Category
 ├── display_order: INTEGER [DEFAULT 0]
 ├── is_active: BOOLEAN [DEFAULT true]
 ├── created_by: BIGINT [FK → User]
+├── updated_by: BIGINT [FK → User]
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-└── updated_at: TIMESTAMP
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Relaciones:**
+
 - Una categoría tiene muchos productos (One-to-Many)
 
 ---
 
 ### Entidad: Product (Producto/Plato)
+
 ```
 Product
 ├── id: BIGINT [PK]
-├── category_id: BIGINT [FK → Category] [NOT NULL]
+├── category_id: BIGINT [FK → Category] [NOT NULL] [INDEX]
 ├── name: VARCHAR(100) [NOT NULL]
 ├── description: TEXT
 ├── price: DECIMAL(10,2) [NOT NULL]
 ├── image_url: VARCHAR(255)
-├── preparation_time: INTEGER (en minutos)
+├── preparation_time: INTEGER
 ├── is_available: BOOLEAN [DEFAULT true]
 ├── is_active: BOOLEAN [DEFAULT true]
 ├── kitchen_station: VARCHAR(20)
 │   └── ENUM: GRILL, FRY, COLD, BAR, DESSERT
 ├── created_by: BIGINT [FK → User]
+├── updated_by: BIGINT [FK → User]
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-└── updated_at: TIMESTAMP
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Relaciones:**
+
 - Un producto pertenece a una categoría (Many-to-One)
 - Un producto puede estar en muchos items de orden (One-to-Many)
 
 ---
 
-### Entidad: Table (Mesa)
+### Entidad: RestaurantTable (Mesa)
+
 ```
-Table
+RestaurantTable
 ├── id: BIGINT [PK]
 ├── table_number: VARCHAR(10) [UNIQUE, NOT NULL]
 ├── capacity: INTEGER [NOT NULL]
 ├── status: VARCHAR(20) [NOT NULL]
 │   └── ENUM: AVAILABLE, OCCUPIED, RESERVED, DIRTY
 ├── section: VARCHAR(50)
-├── qr_code: VARCHAR(255)
 ├── is_active: BOOLEAN [DEFAULT true]
+├── created_by: BIGINT [FK → User]
+├── updated_by: BIGINT [FK → User]
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-└── updated_at: TIMESTAMP
+└── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ```
 
 **Relaciones:**
-- Una mesa puede tener muchas órdenes (One-to-Many)
+
+- Una mesa puede tener muchas órdenes pero no al mismo tiempo (One-to-Many)
 
 ---
 
 ### Entidad: Order (Comanda/Orden)
+
 ```
 Order
 ├── id: BIGINT [PK]
-├── order_number: VARCHAR(20) [UNIQUE, NOT NULL] (Auto-generado)
-├── table_id: BIGINT [FK → Table] [NOT NULL]
-├── waiter_id: BIGINT [FK → User] [NOT NULL]
+├── order_number: VARCHAR(20) [UNIQUE, NOT NULL] [INDEX]
+├── table_id: BIGINT [FK → RestaurantTable] [NOT NULL] [INDEX]
+├── waiter_id: BIGINT [FK → User] [NOT NULL] [INDEX]
 ├── status: VARCHAR(20) [NOT NULL]
 │   └── ENUM: PENDING, IN_PROGRESS, READY, SERVED, PAID, CANCELLED
 ├── subtotal: DECIMAL(10,2) [NOT NULL]
@@ -340,13 +399,15 @@ Order
 │   └── ENUM: CASH, CARD, TRANSFER, NULL
 ├── customer_name: VARCHAR(100)
 ├── notes: TEXT
-├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-├── sent_to_kitchen_at: TIMESTAMP
+├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP] [INDEX]
+├── updated_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
 ├── completed_at: TIMESTAMP
 └── paid_at: TIMESTAMP
+
 ```
 
 **Relaciones:**
+
 - Una orden pertenece a una mesa (Many-to-One)
 - Una orden pertenece a un mesero (Many-to-One)
 - Una orden tiene muchos items (One-to-Many)
@@ -354,31 +415,33 @@ Order
 ---
 
 ### Entidad: OrderItem (Item de Comanda)
+
 ```
 OrderItem
 ├── id: BIGINT [PK]
-├── order_id: BIGINT [FK → Order] [NOT NULL]
-├── product_id: BIGINT [FK → Product] [NOT NULL]
+├── order_id: BIGINT [FK → Order] [NOT NULL] [INDEX]
+├── product_id: BIGINT [FK → Product] [NOT NULL] [INDEX]
 ├── quantity: INTEGER [NOT NULL] [DEFAULT 1]
 ├── unit_price: DECIMAL(10,2) [NOT NULL]
 ├── subtotal: DECIMAL(10,2) [NOT NULL]
 ├── status: VARCHAR(20) [NOT NULL]
 │   └── ENUM: PENDING, PREPARING, READY, SERVED, CANCELLED
-├── notes: TEXT (modificaciones del cliente)
-├── kitchen_station: VARCHAR(20)
+├── notes: TEXT
 ├── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
-├── started_at: TIMESTAMP
 ├── ready_at: TIMESTAMP
 └── served_at: TIMESTAMP
+
 ```
 
 **Relaciones:**
+
 - Un item pertenece a una orden (Many-to-One)
 - Un item referencia a un producto (Many-to-One)
 
 ---
 
 ### Entidad: AuditLog (Log de Auditoría)
+
 ```
 AuditLog
 ├── id: BIGINT [PK]
@@ -391,6 +454,7 @@ AuditLog
 ├── ip_address: VARCHAR(45)
 ├── user_agent: VARCHAR(255)
 └── created_at: TIMESTAMP [DEFAULT CURRENT_TIMESTAMP]
+
 ```
 
 **Propósito:** Rastrear todas las operaciones críticas del sistema
@@ -401,36 +465,36 @@ AuditLog
 
 ### Matriz de Permisos
 
-| Recurso | Acción | ADMIN | WAITER | KITCHEN | CASHIER |
-|---------|--------|-------|--------|---------|---------|
-| **USER** | CREATE | ✅ | ❌ | ❌ | ❌ |
-| | READ | ✅ | ❌ | ❌ | ❌ |
-| | UPDATE | ✅ | ❌ | ❌ | ❌ |
-| | DELETE | ✅ | ❌ | ❌ | ❌ |
-| **CATEGORY** | CREATE | ✅ | ❌ | ❌ | ❌ |
-| | READ | ✅ | ✅ | ✅ | ✅ |
-| | UPDATE | ✅ | ❌ | ❌ | ❌ |
-| | DELETE | ✅ | ❌ | ❌ | ❌ |
-| **PRODUCT** | CREATE | ✅ | ❌ | ❌ | ❌ |
-| | READ | ✅ | ✅ | ✅ | ✅ |
-| | UPDATE | ✅ | ❌ | ❌ | ❌ |
-| | DELETE | ✅ | ❌ | ❌ | ❌ |
-| | TOGGLE_AVAILABILITY | ✅ | ❌ | ✅ | ❌ |
-| **TABLE** | CREATE | ✅ | ❌ | ❌ | ❌ |
-| | READ | ✅ | ✅ | ❌ | ✅ |
-| | UPDATE | ✅ | ✅ | ❌ | ❌ |
-| | CHANGE_STATUS | ✅ | ✅ | ❌ | ❌ |
-| **ORDER** | CREATE | ✅ | ✅ | ❌ | ❌ |
-| | READ | ✅ | ✅ | ✅ | ✅ |
-| | UPDATE | ✅ | ✅ | ❌ | ❌ |
-| | CANCEL | ✅ | ✅ | ❌ | ❌ |
-| | SEND_TO_KITCHEN | ✅ | ✅ | ❌ | ❌ |
-| **ORDER_ITEM** | UPDATE_STATUS | ❌ | ❌ | ✅ | ❌ |
-| **PAYMENT** | PROCESS | ✅ | ✅ | ❌ | ✅ |
-| | APPLY_DISCOUNT | ✅ | ❌ | ❌ | ✅ |
-| **REPORTS** | VIEW_DASHBOARD | ✅ | ❌ | ❌ | ✅ |
-| | VIEW_SALES | ✅ | ❌ | ❌ | ✅ |
-| | EXPORT | ✅ | ❌ | ❌ | ❌ |
+| Recurso              | Acción              | ADMIN | WAITER | KITCHEN | CASHIER |
+| -------------------- | ------------------- | ----- | ------ | ------- | ------- |
+| **USER**             | CREATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | READ                | ✅    | ❌     | ❌      | ❌      |
+|                      | UPDATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | DELETE              | ✅    | ❌     | ❌      | ❌      |
+| **CATEGORY**         | CREATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | READ                | ✅    | ✅     | ✅      | ✅      |
+|                      | UPDATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | DELETE              | ✅    | ❌     | ❌      | ❌      |
+| **PRODUCT**          | CREATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | READ                | ✅    | ✅     | ✅      | ✅      |
+|                      | UPDATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | DELETE              | ✅    | ❌     | ❌      | ❌      |
+|                      | TOGGLE_AVAILABILITY | ✅    | ❌     | ✅      | ❌      |
+| **RESTAURANT_TABLE** | CREATE              | ✅    | ❌     | ❌      | ❌      |
+|                      | READ                | ✅    | ✅     | ❌      | ✅      |
+|                      | UPDATE              | ✅    | ✅     | ❌      | ❌      |
+|                      | CHANGE_STATUS       | ✅    | ✅     | ❌      | ❌      |
+| **ORDER**            | CREATE              | ✅    | ✅     | ❌      | ❌      |
+|                      | READ                | ✅    | ✅     | ✅      | ✅      |
+|                      | UPDATE              | ✅    | ✅     | ❌      | ❌      |
+|                      | CANCEL              | ✅    | ✅     | ❌      | ❌      |
+|                      | SEND_TO_KITCHEN     | ✅    | ✅     | ❌      | ❌      |
+| **ORDER_ITEM**       | UPDATE_STATUS       | ❌    | ❌     | ✅      | ❌      |
+| **PAYMENT**          | PROCESS             | ✅    | ✅     | ❌      | ✅      |
+|                      | APPLY_DISCOUNT      | ✅    | ❌     | ❌      | ✅      |
+| **REPORTS**          | VIEW_DASHBOARD      | ✅    | ❌     | ❌      | ✅      |
+|                      | VIEW_SALES          | ✅    | ❌     | ❌      | ✅      |
+|                      | EXPORT              | ✅    | ❌     | ❌      | ❌      |
 
 ### Permisos Predefinidos (Seed Data)
 
@@ -456,22 +520,18 @@ INSERT INTO permission (name, resource, action) VALUES
 ('TOGGLE_PRODUCT_AVAILABILITY', 'PRODUCT', 'EXECUTE'),
 
 -- Permisos de Mesa
-('CREATE_TABLE', 'TABLE', 'CREATE'),
-('READ_TABLE', 'TABLE', 'READ'),
-('UPDATE_TABLE', 'TABLE', 'UPDATE'),
-('CHANGE_TABLE_STATUS', 'TABLE', 'EXECUTE'),
+('CREATE_RESTAURANT_TABLE', 'RESTAURANT_TABLE', 'CREATE'),
+('READ_RESTAURANT_TABLE', 'RESTAURANT_TABLE', 'READ'),
+('UPDATE_RESTAURANT_TABLE', 'RESTAURANT_TABLE', 'UPDATE'),
+('CHANGE_RESTAURANT_TABLE_STATUS', 'RESTAURANT_TABLE', 'EXECUTE'),
 
 -- Permisos de Orden
 ('CREATE_ORDER', 'ORDER', 'CREATE'),
 ('READ_ORDER', 'ORDER', 'READ'),
-('UPDATE_ORDER', 'ORDER', 'UPDATE'),
 ('CANCEL_ORDER', 'ORDER', 'DELETE'),
-('SEND_ORDER_TO_KITCHEN', 'ORDER', 'EXECUTE'),
-('UPDATE_ORDER_ITEM_STATUS', 'ORDER_ITEM', 'UPDATE'),
+('PROCESS_PAYMENT', 'ORDER', 'EXECUTE'),
 
--- Permisos de Pago
-('PROCESS_PAYMENT', 'PAYMENT', 'EXECUTE'),
-('APPLY_DISCOUNT', 'PAYMENT', 'EXECUTE'),
+('UPDATE_ORDER_ITEM_STATUS', 'ORDER_ITEM', 'EXECUTE'),
 
 -- Permisos de Reportes
 ('VIEW_DASHBOARD', 'REPORT', 'READ'),
@@ -479,23 +539,35 @@ INSERT INTO permission (name, resource, action) VALUES
 ('EXPORT_REPORT', 'REPORT', 'EXECUTE');
 ```
 
----
+### crear roles (Seed Data)
+
+```sql
+INSERT INTO role (name, description) VALUES
+('ADMIN',   'Administrador del sistema con acceso total'),
+('WAITER',  'Mesero encargado de tomar y gestionar órdenes'),
+('KITCHEN', 'Personal de cocina encargado de preparar pedidos'),
+('CASHIER', 'Cajero encargado de cobros y facturación');
+
+```
 
 ## 📜 Reglas de Negocio
 
 ### RN-001: Gestión de Mesas
+
 - Una mesa solo puede tener una orden activa a la vez
 - No se puede abrir una mesa que esté en estado OCCUPIED
 - Al cerrar una orden, la mesa debe cambiar automáticamente a DIRTY
 - Una mesa DIRTY debe limpiarse manualmente para volver a AVAILABLE
 
 ### RN-002: Órdenes
+
 - Una orden debe tener al menos un item antes de ser enviada a cocina
 - El order_number debe generarse automáticamente con formato: ORD-YYYYMMDD-XXXX
 - No se pueden agregar items a una orden que ya fue pagada
 - Solo se puede cancelar una orden que no tenga items en estado PREPARING o READY
 
 ### RN-003: Items de Orden
+
 - Al enviar una orden a cocina, todos los items pasan a estado PENDING
 - Un item solo puede pasar a PREPARING si está en PENDING
 - Un item solo puede pasar a READY si está en PREPARING
@@ -503,6 +575,7 @@ INSERT INTO permission (name, resource, action) VALUES
 - El mesero no puede cambiar el estado de items en cocina
 
 ### RN-004: Cálculos Financieros
+
 - subtotal = SUM(quantity × unit_price) de todos los items
 - tax = subtotal × 0.12 (12% IVA Ecuador)
 - total = subtotal + tax - discount
@@ -510,17 +583,20 @@ INSERT INTO permission (name, resource, action) VALUES
 - Al guardar un OrderItem, unit_price debe copiarse del Product.price actual
 
 ### RN-005: Productos
+
 - Un producto no disponible (is_available = false) no puede agregarse a nuevas órdenes
 - Al desactivar un producto, no afecta las órdenes existentes
 - El precio debe ser mayor a 0
 
 ### RN-006: Seguridad
+
 - Las contraseñas deben tener mínimo 8 caracteres
 - Los tokens JWT expiran después de 8 horas
 - Después de 3 intentos fallidos de login, bloquear cuenta por 15 minutos
 - Todas las operaciones de modificación deben registrarse en AuditLog
 
 ### RN-007: Estados de Orden (Flujo)
+
 ```
 PENDING → IN_PROGRESS → READY → SERVED → PAID
              ↓
@@ -528,6 +604,7 @@ PENDING → IN_PROGRESS → READY → SERVED → PAID
 ```
 
 ### RN-008: Estados de OrderItem (Flujo)
+
 ```
 PENDING → PREPARING → READY → SERVED
    ↓
@@ -535,6 +612,7 @@ CANCELLED (solo desde PENDING)
 ```
 
 ### RN-009: Notificaciones en Tiempo Real
+
 - Al crear una orden, notificar a cocina inmediatamente
 - Al cambiar un item a READY, notificar al mesero asignado
 - Al cancelar un item en cocina, notificar al mesero
@@ -550,6 +628,7 @@ CANCELLED (solo desde PENDING)
 **Precondiciones:** El usuario debe estar registrado en el sistema
 
 **Flujo Principal:**
+
 1. El usuario accede a la pantalla de login
 2. Ingresa username y password
 3. El sistema valida las credenciales
@@ -562,6 +641,7 @@ CANCELLED (solo desde PENDING)
    - CASHIER → Terminal de pago
 
 **Flujo Alternativo:**
+
 - 3a. Credenciales incorrectas → mostrar error y registrar intento
 - 3b. Usuario inactivo → mostrar mensaje de cuenta bloqueada
 - 3c. Tercer intento fallido → bloquear cuenta por 15 minutos
@@ -574,12 +654,14 @@ CANCELLED (solo desde PENDING)
 
 **Actor:** WAITER
 
-**Precondiciones:** 
+**Precondiciones:**
+
 - El mesero debe estar autenticado
 - Debe haber al menos una mesa disponible
 - Debe haber productos activos en el menú
 
 **Flujo Principal:**
+
 1. El mesero selecciona una mesa AVAILABLE
 2. El sistema cambia el estado de la mesa a OCCUPIED
 3. El sistema crea una nueva orden en estado PENDING
@@ -596,11 +678,13 @@ CANCELLED (solo desde PENDING)
    - Crea los OrderItems en estado PENDING
 
 **Flujo Alternativo:**
+
 - 1a. Mesa ocupada → mostrar error
 - 4a. No hay productos disponibles → mostrar mensaje
 - 8a. Pedido vacío → mostrar error
 
-**Postcondiciones:** 
+**Postcondiciones:**
+
 - La orden está registrada y visible en cocina
 - La mesa está ocupada
 
@@ -611,10 +695,12 @@ CANCELLED (solo desde PENDING)
 **Actor:** KITCHEN
 
 **Precondiciones:**
+
 - El usuario de cocina debe estar autenticado
 - Debe haber órdenes con items en estado PENDING
 
 **Flujo Principal:**
+
 1. La pantalla de cocina muestra todas las órdenes activas
 2. Los items se organizan en columnas tipo Kanban:
    - PENDING (nuevos)
@@ -628,9 +714,11 @@ CANCELLED (solo desde PENDING)
 8. El item aparece en el dispositivo del mesero como "Listo para servir"
 
 **Flujo Alternativo:**
+
 - 3a. Si todos los items de una orden están READY, la orden cambia a READY
 
 **Postcondiciones:**
+
 - Los items avanzan en su preparación
 - El mesero está informado cuando puede recoger
 
@@ -641,10 +729,12 @@ CANCELLED (solo desde PENDING)
 **Actor:** WAITER
 
 **Precondiciones:**
+
 - La orden debe estar en estado SERVED
 - Todos los items deben estar en estado SERVED
 
 **Flujo Principal:**
+
 1. El mesero selecciona la mesa a cerrar
 2. El sistema muestra el detalle de la cuenta:
    - Lista de productos con cantidades y precios
@@ -663,11 +753,13 @@ CANCELLED (solo desde PENDING)
 7. Muestra recibo digital (opción de imprimir)
 
 **Flujo Alternativo:**
+
 - 1a. Hay items no servidos → mostrar advertencia
 - 3a. Descuento sin permiso → denegar
 - 3b. Descuento mayor al subtotal → mostrar error
 
 **Postcondiciones:**
+
 - La orden está pagada
 - La mesa está sucia y lista para limpieza
 - Se registró la venta
@@ -681,6 +773,7 @@ CANCELLED (solo desde PENDING)
 **Precondiciones:** El admin debe estar autenticado
 
 **Flujo Principal - Crear Producto:**
+
 1. El admin accede a la sección "Gestión de Menú"
 2. Hace clic en "Nuevo Producto"
 3. Completa el formulario:
@@ -697,21 +790,25 @@ CANCELLED (solo desde PENDING)
 7. Registra created_by = admin.id
 
 **Flujo Alternativo:**
+
 - 5a. Datos inválidos → mostrar errores de validación
 - 6a. Nombre duplicado → mostrar error
 
 **Flujo Principal - Editar Producto:**
+
 1. Busca el producto
 2. Modifica los campos necesarios
 3. Guarda cambios
 4. El sistema actualiza updated_at
 
 **Flujo Principal - Desactivar Producto:**
+
 1. Selecciona el producto
 2. Cambia is_available a false
 3. El producto deja de aparecer en nuevos pedidos
 
-**Postcondiciones:** 
+**Postcondiciones:**
+
 - El menú está actualizado
 - Los cambios son inmediatos en las apps de meseros
 
@@ -724,6 +821,7 @@ CANCELLED (solo desde PENDING)
 **Precondiciones:** El admin debe estar autenticado
 
 **Flujo Principal:**
+
 1. El admin accede al dashboard
 2. El sistema muestra en tiempo real:
    - **Ventas del día:**
@@ -748,12 +846,15 @@ CANCELLED (solo desde PENDING)
 ## 🌐 APIs y Endpoints
 
 ### Base URL
+
 ```
 http://localhost:8080/api/v1
 ```
 
 ### Autenticación
+
 Todas las APIs (excepto login) requieren header:
+
 ```
 Authorization: Bearer {JWT_TOKEN}
 ```
@@ -763,9 +864,11 @@ Authorization: Bearer {JWT_TOKEN}
 ### 1. Authentication API
 
 #### POST /auth/login
+
 **Descripción:** Autenticar usuario y obtener token
 
 **Request Body:**
+
 ```json
 {
   "username": "string",
@@ -774,6 +877,7 @@ Authorization: Bearer {JWT_TOKEN}
 ```
 
 **Response 200:**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -781,10 +885,14 @@ Authorization: Bearer {JWT_TOKEN}
   "user": {
     "id": 1,
     "username": "juan.perez",
-    "email": "juan@restoflow.com",
+    "email": "juan@EasyRestaurant.com",
     "firstName": "Juan",
     "lastName": "Pérez",
     "role": "WAITER",
     "permissions": [
       "CREATE_ORDER",
-      "READ
+      "READ"
+    ]
+  }
+}
+```

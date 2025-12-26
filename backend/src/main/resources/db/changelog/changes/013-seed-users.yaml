@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13
+      author: STEPHEN
+      changes:
+        - sqlFile:
+            path: db/changelog/data/users.sql

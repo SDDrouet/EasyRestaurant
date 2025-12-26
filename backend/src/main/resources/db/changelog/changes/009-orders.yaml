@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009
+      author: Stephen Drouet
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: order_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: table_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: waiter_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: subtotal
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: tax
+                  type: DECIMAL(10, 2)
+                  defaultValueNumeric: '0'
+
+              - column:
+                  name: discount
+                  type: DECIMAL(10, 2)
+                  defaultValueNumeric: '0'
+
+              - column:
+                  name: total
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: payment_method
+                  type: VARCHAR(20)
+
+              - column:
+                  name: customer_name
+                  type: VARCHAR(100)
+
+              - column:
+                  name: notes
+                  type: TEXT
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP
+
+              - column:
+                  name: paid_at
+                  type: TIMESTAMP
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_order_number
+            columns:
+              - column:
+                  name: order_number
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_table_id
+            columns:
+              - column:
+                  name: table_id
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_waiter_id
+            columns:
+              - column:
+                  name: waiter_id
+
+        - createIndex:
+            tableName: orders
+            indexName: idx_orders_created_at
+            columns:
+              - column:
+                  name: created_at
+
+        - addForeignKeyConstraint:
+            constraintName: fk_orders_table_id_restaurant_tables
+            baseTableName: orders
+            baseColumnNames: table_id
+            referencedTableName: restaurant_tables
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_orders_waiter_id_users
+            baseTableName: orders
+            baseColumnNames: waiter_id
+            referencedTableName: users
+            referencedColumnNames: id

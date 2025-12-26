@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - include: { file: db/changelog/changes/001-users.yaml }
+  - include: { file: db/changelog/changes/002-roles.yaml }
+  - include: { file: db/changelog/changes/003-user-roles.yaml }
+  - include: { file: db/changelog/changes/004-permissions.yaml }
+  - include: { file: db/changelog/changes/005-role-permissions.yaml }
+  - include: { file: db/changelog/changes/006-categories.yaml }
+  - include: { file: db/changelog/changes/007-products.yaml }
+  - include: { file: db/changelog/changes/008-restaurant-tables.yaml }
+  - include: { file: db/changelog/changes/009-orders.yaml }
+  - include: { file: db/changelog/changes/010-order-items.yaml }
+  - include: { file: db/changelog/changes/011-audit-logs.yaml }
+  - include: { file: db/changelog/changes/012-seed-roles-permissions.yaml }
+  - include: { file: db/changelog/changes/013-seed-users.yaml }
