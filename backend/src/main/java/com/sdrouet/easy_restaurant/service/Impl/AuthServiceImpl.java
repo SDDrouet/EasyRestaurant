@@ -1,7 +1,7 @@
-package com.sdrouet.easy_restaurant.config.security.service.Impl;
+package com.sdrouet.easy_restaurant.service.Impl;
 
 import com.sdrouet.easy_restaurant.config.security.jwt.JwtService;
-import com.sdrouet.easy_restaurant.config.security.service.AuthService;
+import com.sdrouet.easy_restaurant.service.AuthService;
 import com.sdrouet.easy_restaurant.dto.auth.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

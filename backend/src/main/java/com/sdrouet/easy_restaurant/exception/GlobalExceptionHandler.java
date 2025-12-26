@@ -1,4 +1,4 @@
-package com.sdrouet.easy_restaurant.config.exception;
+package com.sdrouet.easy_restaurant.exception;
 
 import com.sdrouet.easy_restaurant.dto.common.ApiErrorResponse;
 import io.jsonwebtoken.JwtException;

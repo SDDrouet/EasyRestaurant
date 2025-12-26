@@ -3,7 +3,7 @@ package com.sdrouet.easy_restaurant.controller;
 import com.sdrouet.easy_restaurant.dto.auth.LoginRequest;
 import com.sdrouet.easy_restaurant.dto.auth.LoginResponse;
 import com.sdrouet.easy_restaurant.dto.common.ApiResponse;
-import com.sdrouet.easy_restaurant.config.security.service.AuthService;
+import com.sdrouet.easy_restaurant.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

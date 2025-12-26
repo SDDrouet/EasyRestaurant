@@ -1,4 +1,4 @@
-package com.sdrouet.easy_restaurant.config.security.service.Impl;
+package com.sdrouet.easy_restaurant.config.security;
 
 import com.sdrouet.easy_restaurant.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
