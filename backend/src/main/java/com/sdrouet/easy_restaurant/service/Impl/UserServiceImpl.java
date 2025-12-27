@@ -5,6 +5,7 @@ import com.sdrouet.easy_restaurant.dto.user.UpdateUserRequest;
 import com.sdrouet.easy_restaurant.dto.user.UpdateUserResponse;
 import com.sdrouet.easy_restaurant.entity.Role;
 import com.sdrouet.easy_restaurant.entity.User;
+import com.sdrouet.easy_restaurant.exception.ResourceNotFoundException;
 import com.sdrouet.easy_restaurant.mapper.UserMapper;
 import com.sdrouet.easy_restaurant.repository.RoleRepository;
 import com.sdrouet.easy_restaurant.repository.UserRepository;
@@ -13,7 +14,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
+    @Override
     public User register(RegisterUserRequest request) {
 
         if (userRepository.existsByUsername(request.username())) {
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOpt = userRepository.findById(updateUserRequest.id());
 
         if (userOpt.isEmpty()) {
-            throw new ResourceAccessException("Usuario no encontrado");
+            throw new ResourceNotFoundException("Usuario no encontrado");
         }
 
         User user = userOpt.get();
