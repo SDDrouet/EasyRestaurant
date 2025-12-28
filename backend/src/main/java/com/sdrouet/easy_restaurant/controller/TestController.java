@@ -1,6 +1,5 @@
 package com.sdrouet.easy_restaurant.controller;
 
-import com.sdrouet.easy_restaurant.config.annotation.AuditableAction;
 import com.sdrouet.easy_restaurant.dto.common.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
     @GetMapping("/secure")
-    @PreAuthorize("hasAuthority('CREATE_USER')")
-    @AuditableAction(action = "EXECUTE", resource = "")
+    @PreAuthorize("hasAuthority('READ_PRODUCT')")
     public ResponseEntity<ApiResponse<Object>> secure() {
         return ResponseEntity.ok(ApiResponse.ok("Operación correcta"));
     }

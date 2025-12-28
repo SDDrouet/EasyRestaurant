@@ -2,20 +2,27 @@ package com.sdrouet.easy_restaurant.service.Impl;
 
 import com.sdrouet.easy_restaurant.dto.auth.RegisterUserRequest;
 import com.sdrouet.easy_restaurant.dto.user.UpdateUserRequest;
-import com.sdrouet.easy_restaurant.dto.user.UpdateUserResponse;
+import com.sdrouet.easy_restaurant.dto.user.UserResponse;
 import com.sdrouet.easy_restaurant.entity.Role;
 import com.sdrouet.easy_restaurant.entity.User;
-import com.sdrouet.easy_restaurant.exception.ResourceNotFoundException;
+import com.sdrouet.easy_restaurant.exception.ApiException;
 import com.sdrouet.easy_restaurant.repository.RoleRepository;
 import com.sdrouet.easy_restaurant.repository.UserRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -91,7 +98,7 @@ class UserServiceImplTest {
             when(userRepository.existsByUsername(request.username())).thenReturn(true);
 
             assertThrows(
-                    IllegalArgumentException.class,
+                    ApiException.class,
                     () -> userService.register(request)
             );
 
@@ -111,7 +118,7 @@ class UserServiceImplTest {
             when(userRepository.existsByUsername(request.username())).thenReturn(true);
 
             assertThrows(
-                    IllegalArgumentException.class,
+                    ApiException.class,
                     () -> userService.register(request)
             );
 
@@ -146,7 +153,7 @@ class UserServiceImplTest {
             when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
             // Act
-            UpdateUserResponse userResponse = userService.updateUser(request);
+            UserResponse userResponse = userService.updateUser(request);
 
             // Asserts
             assertNotNull(userResponse);
@@ -181,7 +188,7 @@ class UserServiceImplTest {
             when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
             // Act
-            UpdateUserResponse userResponse = userService.updateUser(request);
+            UserResponse userResponse = userService.updateUser(request);
 
             // Asserts
             assertNotNull(userResponse);
@@ -216,7 +223,7 @@ class UserServiceImplTest {
 
             // Assert
             assertThrows(
-                    IllegalArgumentException.class,
+                    ApiException.class,
                     () -> userService.updateUser(request)
             );
 
@@ -234,9 +241,91 @@ class UserServiceImplTest {
             when(userRepository.findById(request.id())).thenReturn(Optional.empty());
 
             assertThrows(
-                    ResourceNotFoundException.class,
+                    ApiException.class,
                     () -> userService.updateUser(request)
             );
+        }
+
+        @Test
+        void shouldChangeUserStatus() {
+            Long userId = 1L;
+            User user = User.builder()
+                    .id(1L)
+                    .isActive(true)
+                    .build();
+
+            when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
+            assertNotNull(user);
+            when(userRepository.save(user)).thenAnswer(invocation -> invocation.getArgument(0));
+
+            User userResponse = userService.changeUserStatus(userId);
+
+            assertEquals(false, userResponse.getIsActive());
+
+            verify(userRepository, times(1)).findById((any(Long.class)));
+            verify(userRepository, times(1)).save(any(User.class));
+        }
+
+        @Test
+        void shouldGetUserById() {
+            Long userId = 1L;
+            User user = User.builder()
+                    .id(1L)
+                    .build();
+
+            when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
+
+            User userResponse = userService.getUserById(userId);
+
+            assertNotNull(userResponse);
+            assertEquals(userId, userResponse.getId());
+
+            verify(userRepository, times(1)).findById(any(Long.class));
+        }
+
+        @Test
+        void shouldThrowException_WhenUserByIdNotFound() {
+            Long userId = 1L;
+
+            when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+            assertThrows(ApiException.class, () -> userService.getUserById(userId));
+
+            verify(userRepository, times(1)).findById(any(Long.class));
+        }
+
+        @Test
+        void shouldGetAllUsers() {
+            // Given
+            Pageable pageable = PageRequest.of(0, 10);
+
+            User user = User.builder()
+                    .id(1L)
+                    .username("a1")
+                    .email("b1")
+                    .build();
+
+            Page<User> page = new PageImpl<>(
+                    List.of(user),
+                    pageable,
+                    1
+            );
+
+            when(userRepository.findAll(
+                    ArgumentMatchers.<Specification<User>>any(),
+                    eq(pageable)
+            )).thenReturn(page);
+
+            // When
+            Page<User> result = userService.getUsers(pageable, "", "", "");
+
+            // Then
+            assertNotNull(result);
+            assertEquals(1, result.getTotalElements());
+            assertEquals("a1", result.getContent().get(0).getUsername());
+
+            verify(userRepository)
+                    .findAll(ArgumentMatchers.<Specification<User>>any(), eq(pageable));
         }
 
     }

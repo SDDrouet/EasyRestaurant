@@ -15,4 +15,7 @@ public record ApiResponse<T>(
     public static <T> ApiResponse<T> ok(String message) {
         return new ApiResponse<>(true, message, null, LocalDateTime.now());
     }
+    public static <T> ApiResponse<T> ok(T data) {
+        return new ApiResponse<>(true, "Operación realizada con éxito", data, LocalDateTime.now());
+    }
 }

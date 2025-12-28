@@ -25,7 +25,7 @@ public class AuthController {
         ));
     }
 
-    @GetMapping("/test")
+    @GetMapping("/ping")
     public ResponseEntity<ApiResponse<Object>> test() {
         return ResponseEntity.ok(ApiResponse.ok(
                 "Operación correcta"

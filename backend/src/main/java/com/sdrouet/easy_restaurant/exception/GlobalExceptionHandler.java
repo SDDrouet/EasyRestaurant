@@ -1,9 +1,9 @@
 package com.sdrouet.easy_restaurant.exception;
 
 import com.sdrouet.easy_restaurant.dto.common.ApiErrorResponse;
+import com.sdrouet.easy_restaurant.enums.ErrorCode;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +20,12 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    // VALIDACIONES (@Valid)
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ApiErrorResponse> handleApiException(ApiException e) {
+        return build(e.getErrorCode(), e.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = ex.getBindingResult()
@@ -31,103 +37,57 @@ public class GlobalExceptionHandler {
                         (a, b) -> a
                 ));
 
-        return ResponseEntity.badRequest().body(
-                ApiErrorResponse.of(
-                        "VALIDATION_ERROR",
-                        "Datos inválidos",
-                        errors
-                )
-        );
+        return build(ErrorCode.VALIDATION_ERROR, "Datos Inválidos", errors);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiErrorResponse> handleIllegalArgument(IllegalArgumentException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ApiErrorResponse.of(
-                        "BAD_REQUEST",
-                        e.getMessage(),
-                        null
-                )
-        );
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleResourceNotFound(NoResourceFoundException ex) {
+        return build(ErrorCode.RESOURCE_NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiErrorResponse> handleBadCredentials() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                ApiErrorResponse.of(
-                        "BAD_CREDENTIALS",
-                        "Credenciales incorrectas",
-                        null
-                )
-        );
+        return build(ErrorCode.BAD_CREDENTIALS, "Credenciales incorrectas");
     }
 
     @ExceptionHandler(DisabledException.class)
     public ResponseEntity<ApiErrorResponse> DisabledUser() {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                ApiErrorResponse.of(
-                        HttpStatus.FORBIDDEN.name(),
-                        "Acceso denegado, usuario bloqueado",
-                        null
-                )
-        );
+        return build(ErrorCode.USER_DISABLED, "Acceso denegado, usuario bloqueado");
     }
 
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ApiErrorResponse> AuthorizationDeniedCredentials() {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                ApiErrorResponse.of(
-                        HttpStatus.FORBIDDEN.name(),
-                        "Acceso denegado",
-                        null
-                )
-        );
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleNotFound(ResourceNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                ApiErrorResponse.of(
-                        "RESOURCE_NOT_FOUND",
-                        e.getMessage(),
-                        null
-                )
-        );
-    }
-
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiErrorResponse> handleBusiness(BusinessException e) {
-        return ResponseEntity.badRequest().body(
-                ApiErrorResponse.of(
-                        "BUSINESS_ERROR",
-                        e.getMessage(),
-                        null
-                )
-        );
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> handleGeneric(
-            Exception ex
-    ) {
-        log.error("Unexpected error", ex);
-        return ResponseEntity.internalServerError().body(
-                ApiErrorResponse.of(
-                        "INTERNAL_ERROR",
-                        "Error inesperado",
-                        null
-                )
-        );
+        return build(ErrorCode.FORBIDDEN, "Acceso denegado");
     }
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ApiErrorResponse> handleJwtException(JwtException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                ApiErrorResponse.of(
-                        "UNAUTHORIZED",
-                        e.getMessage(),
+        return build(ErrorCode.BAD_CREDENTIALS, e.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorResponse> handleGeneric(Exception ex) {
+        log.error("Unexpected error", ex);
+        return build(ErrorCode.INTERNAL_ERROR, "Tenemos problemas consulte con soporte");
+    }
+
+    private ResponseEntity<ApiErrorResponse> build(ErrorCode code, String message) {
+        return ResponseEntity
+                .status(code.status())
+                .body(ApiErrorResponse.of(
+                        code.name(),
+                        message,
                         null
-                )
-        );
+                ));
+    }
+
+    private ResponseEntity<ApiErrorResponse> build(ErrorCode code, String message, Map<String, String> details) {
+        return ResponseEntity
+                .status(code.status())
+                .body(ApiErrorResponse.of(
+                        code.name(),
+                        message,
+                        details
+                ));
     }
 }

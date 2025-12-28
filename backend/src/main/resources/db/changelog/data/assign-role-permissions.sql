@@ -10,6 +10,7 @@ FROM roles r
             OR (
             r.name = 'WAITER' AND p.name IN (
                                              'UPDATE_USER',
+                                             'READ_USER',
                                              'READ_CATEGORY',
                                              'READ_PRODUCT',
                                              'READ_RESTAURANT_TABLE',
@@ -23,6 +24,8 @@ FROM roles r
             -- KITCHEN
             OR (
             r.name = 'KITCHEN' AND p.name IN (
+                                              'UPDATE_USER',
+                                              'READ_USER',
                                               'READ_CATEGORY',
                                               'READ_PRODUCT',
                                               'TOGGLE_PRODUCT_AVAILABILITY',
@@ -34,6 +37,8 @@ FROM roles r
             -- CASHIER
             OR (
             r.name = 'CASHIER' AND p.name IN (
+                                              'UPDATE_USER',
+                                              'READ_USER',
                                               'READ_PRODUCT',
                                               'READ_ORDER',
                                               'PROCESS_PAYMENT',

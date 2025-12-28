@@ -2,8 +2,12 @@
 INSERT INTO permissions (name, resource, action)
 VALUES ('CREATE_USER', 'USER', 'CREATE'),
        ('READ_USER', 'USER', 'READ'),
+       ('READ_ANY_USER', 'USER', 'READ'),
        ('UPDATE_USER', 'USER', 'UPDATE'),
+       ('UPDATE_ANY_USER', 'USER', 'UPDATE'),
+       ('UPDATE_USER_STATUS', 'USER', 'UPDATE'),
        ('DELETE_USER', 'USER', 'DELETE'),
+
 
 -- Permisos de Categoría
        ('CREATE_CATEGORY', 'CATEGORY', 'CREATE'),
