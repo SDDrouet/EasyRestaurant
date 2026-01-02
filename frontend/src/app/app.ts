@@ -6,7 +6,6 @@ import { Home } from './feature/home/home';
   selector: 'app-root',
   imports: [RouterOutlet, Home],
   templateUrl: './app.html',
-  styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('frontend');
