@@ -24,5 +24,6 @@ spring:
 
   jwt:
     secret: a-very-long-super-secure-secret-key-with-at-least-64-characters-!!!!
-    expiration: 300000 # 5 min
+    expiration: 300000 # 5 minExpiration
+    refresh-token-expiration: 900000 # 15 minExpiration
 

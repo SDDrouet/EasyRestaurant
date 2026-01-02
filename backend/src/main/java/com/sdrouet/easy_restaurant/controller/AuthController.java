@@ -4,6 +4,7 @@ import com.sdrouet.easy_restaurant.dto.auth.LoginRequest;
 import com.sdrouet.easy_restaurant.dto.auth.LoginResponse;
 import com.sdrouet.easy_restaurant.dto.common.ApiResponse;
 import com.sdrouet.easy_restaurant.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +22,15 @@ public class AuthController {
         LoginResponse res = authService.login(request.username(), request.password());
         return ResponseEntity.ok(ApiResponse.ok(
                 "Sesión Iniciada correctamente",
+                res
+        ));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<LoginResponse>> refresh(HttpServletRequest request) {
+        LoginResponse res = authService.refresh(request);
+        return ResponseEntity.ok(ApiResponse.ok(
+                "Refresh token",
                 res
         ));
     }

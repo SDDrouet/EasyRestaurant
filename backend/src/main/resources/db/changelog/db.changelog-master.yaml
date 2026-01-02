@@ -12,3 +12,5 @@ databaseChangeLog:
   - include: { file: db/changelog/changes/011-audit-logs.yaml }
   - include: { file: db/changelog/changes/012-seed-roles-permissions.yaml }
   - include: { file: db/changelog/changes/013-seed-users.yaml }
+  - include: { file: db/changelog/changes/014-refresh-tokens.yaml }
+

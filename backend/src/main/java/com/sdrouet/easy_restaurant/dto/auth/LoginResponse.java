@@ -5,9 +5,10 @@ import lombok.Builder;
 @Builder
 public record LoginResponse(
         String accessToken,
+        String refreshToken,
         String tokenType
 ) {
-    public LoginResponse(String accessToken) {
-        this(accessToken, "Bearer");
+    public LoginResponse(String accessToken, String refreshToken) {
+        this(accessToken, refreshToken, "Bearer");
     }
 }

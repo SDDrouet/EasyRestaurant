@@ -2,6 +2,7 @@ package com.sdrouet.easy_restaurant.service.Impl;
 
 import com.sdrouet.easy_restaurant.config.security.jwt.JwtService;
 import com.sdrouet.easy_restaurant.dto.auth.LoginResponse;
+import com.sdrouet.easy_restaurant.entity.RefreshToken;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,14 +45,21 @@ class AuthServiceImplTest {
         Authentication authentication =
                 new UsernamePasswordAuthenticationToken(username, password);
 
-        LoginResponse loginResponse =
-                new LoginResponse("access-token", "refresh-token");
+        String accessToken = "access-token";
+        RefreshToken refreshToken = RefreshToken.builder()
+                .token("refresh-token")
+                .build();
 
         when(authenticationManager.authenticate(any(Authentication.class)))
                 .thenReturn(authentication);
 
-        when(jwtService.createToken(authentication))
-                .thenReturn(loginResponse);
+        when(jwtService.createAccessToken(authentication))
+                .thenReturn(accessToken);
+
+        when(jwtService.createRefreshToken(authentication))
+                .thenReturn(refreshToken);
+
+        when(jwtService.saveRefreshToken(refreshToken)).thenReturn(refreshToken);
 
         // Act
         LoginResponse result = authService.login(username, password);
@@ -59,6 +67,7 @@ class AuthServiceImplTest {
         // Assert
         assertNotNull(result);
         assertEquals("access-token", result.accessToken());
+        assertEquals("refresh-token", result.refreshToken());
 
         assertEquals(
                 authentication,
@@ -69,7 +78,7 @@ class AuthServiceImplTest {
                 .authenticate(any(Authentication.class));
 
         verify(jwtService, times(1))
-                .createToken(authentication);
+                .createAccessToken(authentication);
     }
 
     @Test
@@ -82,6 +91,6 @@ class AuthServiceImplTest {
                 () -> authService.login("admin", "wrong")
         );
 
-        verify(jwtService, never()).createToken(any());
+        verify(jwtService, never()).createAccessToken(any());
     }
 }

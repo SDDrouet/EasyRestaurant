@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 014
+      author: Stephen Drouet
+      changes:
+        - createTable:
+            tableName: refresh_tokens
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: token, type: VARCHAR, constraints: { nullable: false } }
+              - column: { name: user_id, type: BIGINT, constraints: { nullable: false } }
+              - column: { name: issued_at, type: TIMESTAMP, constraints: { nullable: false } }
+              - column: { name: expires_at, type: TIMESTAMP, constraints: { nullable: false } }
+              - column: { name: revoked, type: BOOLEAN, defaultValue: 'false', constraints: { nullable: false } }
+              - column: { name: replaced_by, type: BIGINT, constraints: { nullable: true } }
+              - column: { name: created_ip, type: VARCHAR(30), constraints: { nullable: false } }
+              - column: { name: user_agent, type: VARCHAR, constraints: { nullable: false } }
+              - column: { name: created_at, type: TIMESTAMP, defaultValueComputed: CURRENT_TIMESTAMP, constraints: { nullable: false } }
+
+
+        - createIndex:
+            tableName: refresh_tokens
+            indexName: idx_refresh_tokens_token
+            columns:
+              - column:
+                  name: token
+
+        - createIndex:
+            tableName: refresh_tokens
+            indexName: idx_refresh_tokens_valid
+            columns:
+              - column:
+                  name: revoked
+              - column:
+                  name: expires_at
+
+        - addForeignKeyConstraint:
+            constraintName: fk_refresh_tokens_user_id_users
+            baseTableName: refresh_tokens
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            constraintName: fk_refresh_tokens_id_refresh_tokens
+            baseTableName: refresh_tokens
+            baseColumnNames: replaced_by
+            referencedTableName: refresh_tokens
+            referencedColumnNames: id
