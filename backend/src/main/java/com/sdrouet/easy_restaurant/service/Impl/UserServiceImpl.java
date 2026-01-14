@@ -67,14 +67,7 @@ public class UserServiceImpl implements UserService {
     @AuditableAction(action = "UPDATE", resource = "USER")
     @Transactional
     public UserResponse updateUser(UpdateUserRequest updateUserRequest) {
-
-        Optional<User> userOpt = userRepository.findById(updateUserRequest.id());
-
-        if (userOpt.isEmpty()) {
-            throw ErrorCode.RESOURCE_NOT_FOUND.exception("Usuario no encontrado");
-        }
-
-        User user = userOpt.get();
+        User user = getUserById(updateUserRequest.id());
 
         if (!user.getEmail().equals(updateUserRequest.email()) && userRepository.existsByEmail(updateUserRequest.email())) {
             throw ErrorCode.BAD_REQUEST.exception("Email ya registrado");
@@ -90,12 +83,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @AuditableAction(action = "UPDATE", resource = "USER")
     public User changeUserStatus(Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        if (userOptional.isEmpty()) throw ErrorCode.RESOURCE_NOT_FOUND.exception("Usuario no encontrado");
-
-        User user = userOptional.get();
+        User user = getUserById(userId);
 
         user.setIsActive(!user.getIsActive());
 

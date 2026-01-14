@@ -14,7 +14,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false
+        format_sql: true
         show_sql: false
 
   liquibase:
@@ -24,6 +24,6 @@ spring:
 
   jwt:
     secret: a-very-long-super-secure-secret-key-with-at-least-64-characters-!!!!
-    expiration: 300000 # 5 minExpiration
+    expiration: 25000 # 30 SEG Expiration
     refresh-token-expiration: 900000 # 15 minExpiration
 

@@ -1,10 +1,13 @@
 package com.sdrouet.easy_restaurant.config.security;
 
 import com.sdrouet.easy_restaurant.entity.User;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
 
 public class SecurityUtils {
 
@@ -21,5 +24,15 @@ public class SecurityUtils {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public static String getCookie(HttpServletRequest request, String name) {
+        if (request.getCookies() == null) return null;
+
+        return Arrays.stream(request.getCookies())
+                .filter(c -> name.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findFirst()
+                .orElse(null);
     }
 }

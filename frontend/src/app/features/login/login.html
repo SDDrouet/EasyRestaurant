@@ -1,0 +1,48 @@
+<div class="h-screen flex justify-start items-center">
+  <div class="relative bg-surface-0 w-full md:w-1/3 xl:w-1/4 h-full flex flex-col space-y-8 justify-center p-4 z-10 md:border-r-4 border-primary-500 overflow-hidden">
+    
+    <div class="absolute h-screen inset-0 bg-[url(/assets/images/panelPatern3.png)] bg-center bg-repeat opacity-30 -z-10"></div>
+
+    <div class="flex flex-col items-center justify-center h-full caret-transparent">
+      <img ngSrc="assets/images/logo.png" width="300" height="300" class="w-48 h-48 mx-auto mb-4 rounded-2xl" />
+      <h2 class="text-3xl font-semibold text-center text-surface-600">Inicio de Sesión</h2>
+    </div>
+
+    <form [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="onSubmit($event)" class="flex flex-col space-y-8 h-full">
+      <div>
+        <p-floatlabel class="mt-4">
+          <input pInputText id="username" formControlName="username" [pAutoFocus]="true" autocomplete="on" fluid />
+          <label for="username">Usuario</label>
+        </p-floatlabel>
+        @if (loginForm.get('username')?.invalid && formDir.submitted) {
+          <small class="text-red-500 ml-1">El usuario es requerido</small>
+        }
+      </div>
+
+      <div>
+        <p-floatlabel>
+          <p-password id="password" formControlName="password" autocomplete [feedback]="false" [toggleMask]="true" fluid />
+          <label for="password">Contraseña</label>
+        </p-floatlabel>
+        
+        @if (isInvalid()) {
+          <p-message severity="error" size="small" variant="simple">Credenciales incorrectas</p-message>
+        }
+        
+        @if (loginForm.get('password')?.invalid && formDir.submitted) {
+          <small class="text-red-500 ml-1">La contraseña es requerida</small>
+        }
+      </div>
+
+      <div class="flex justify-end">
+        <button pButton severity="primary" type="submit">
+          <span pButtonLabel>Iniciar Sesión</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="hidden md:block overflow-hidden h-full z-0 bg-surface-950 relative flex-1">
+    <img ngSrc="assets/images/loginScreen.jpg" fill priority class="w-full h-full object-cover blur-xs" />
+  </div>
+</div>

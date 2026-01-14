@@ -3,6 +3,7 @@ package com.sdrouet.easy_restaurant.service.Impl;
 import com.sdrouet.easy_restaurant.config.security.jwt.JwtService;
 import com.sdrouet.easy_restaurant.dto.auth.LoginResponse;
 import com.sdrouet.easy_restaurant.entity.RefreshToken;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

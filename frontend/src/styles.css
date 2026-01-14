@@ -6,3 +6,8 @@
 
 /* Configuración de capas para que Tailwind pueda sobrescribir a PrimeNG sin usar !important */
 @layer theme, base, primeng;
+
+
+* {
+    font-family: "Delius";
+}

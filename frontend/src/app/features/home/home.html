@@ -1,0 +1,26 @@
+<div class="flex">
+  <div class="flex justify-center items-center  flex-col space-y-8">
+    <h2 class="text-4xl font-semibold underline text-surface-600">El proyeto funciona bien</h2>
+
+    <p-button label="Probar ruta segura" class="mt-4 shadow-lg" (onClick)="testSecureEndpoint()" />
+    <p-button label="Probar permisos" class="mt-4 shadow-lg" (onClick)="showPermission()" />
+
+    <div class="p-4 rounded-xl text-shadow-primary-50">
+      Este panel usa el color primario de mi tema Aura.
+    </div>
+
+    <p-datepicker
+      [(ngModel)]="date"
+      [showIcon]="true"
+      inputId="buttondisplay"
+      [showOnFocus]="false"
+    />
+
+    <p>{{ user()?.id }}</p>
+    <p>{{ user()?.email }}</p>
+    <p>{{ user()?.firstName}}</p>
+    <p>{{ user()?.lastName}}</p>
+    <p>{{ user()?.username}}</p>
+    <p>{{ user()?.isActive }}</p>
+  </div>
+</div>

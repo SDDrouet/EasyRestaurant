@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Home } from './feature/home/home';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home],
+  imports: [RouterOutlet, ToastModule],
   templateUrl: './app.html',
 })
 export class App {

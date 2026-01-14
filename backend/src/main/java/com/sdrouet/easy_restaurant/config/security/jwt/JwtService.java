@@ -1,11 +1,14 @@
 package com.sdrouet.easy_restaurant.config.security.jwt;
 
+import com.sdrouet.easy_restaurant.dto.auth.RefreshTokenDto;
 import com.sdrouet.easy_restaurant.entity.RefreshToken;
 import com.sdrouet.easy_restaurant.enums.ErrorCode;
 import com.sdrouet.easy_restaurant.repository.RefreshTokenRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.Optional;
 
@@ -29,32 +32,32 @@ public class JwtService {
         return tokenRepository.save(refreshTokenEntity);
     }
 
-    public RefreshToken invalidateRefreshToken(String token) {
-        Optional<RefreshToken> refreshTokenOpt = tokenRepository
-                .findRefreshTokenByTokenAndRevoked(JwtHashService.hash(token), false);
-        if (refreshTokenOpt.isEmpty()) return null;
-        RefreshToken refreshToken = refreshTokenOpt.get();
-        refreshToken.setRevoked(true);
-
-        return tokenRepository.save(refreshToken);
+    public int invalidateRefreshToken(String token) {
+        return tokenRepository.revokeTokenByToken(JwtHashService.hash(token));
     }
 
-    public String getNewRefreshToken(Authentication authentication, String oldRefreshToken) {
-        Optional<RefreshToken> oldRefreshTokenOpt = tokenRepository
-                .findRefreshTokenByTokenAndRevoked(JwtHashService.hash(oldRefreshToken), false);
+    public RefreshTokenDto findRefreshToken(String token) {
+        Optional<RefreshTokenDto> tokenOpt = tokenRepository
+                .findRefreshTokenByToken(JwtHashService.hash(token));
 
-        if (oldRefreshTokenOpt.isEmpty()) throw ErrorCode.UNAUTHORIZED.exception("JWT no válido");
+        if (tokenOpt.isEmpty()) throw ErrorCode.UNAUTHORIZED.exception("JWT no válido");
 
-        RefreshToken oldRefreshTokenEntity = oldRefreshTokenOpt.get();
+        return tokenOpt.get();
+    }
+
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void revokeAllRefreshTokenByUser(Long userId) {
+        tokenRepository.revokeAllActiveTokensByUser(userId);
+    }
+
+    @Transactional
+    public String getNewRefreshToken(Authentication authentication, RefreshTokenDto oldRefreshTokenDto) {
         RefreshToken newRefreshTokenEntity = createRefreshToken(authentication);
         String newRefreshToken = newRefreshTokenEntity.getToken();
 
         newRefreshTokenEntity = saveRefreshToken(newRefreshTokenEntity);
 
-        oldRefreshTokenEntity.setRevoked(true);
-        oldRefreshTokenEntity.setReplacedBy(newRefreshTokenEntity);
-
-        tokenRepository.save(oldRefreshTokenEntity);
+        tokenRepository.revokeTokenById(oldRefreshTokenDto.id(), newRefreshTokenEntity);
 
         return newRefreshToken;
     }

@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ApiErrorResponse> AuthorizationDeniedCredentials() {
-        return build(ErrorCode.FORBIDDEN, "Acceso denegado");
+        return build(ErrorCode.FORBIDDEN, "No tiene permisos para realizar esta operación");
     }
 
     @ExceptionHandler(JwtException.class)

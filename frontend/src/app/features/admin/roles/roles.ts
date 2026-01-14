@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'app-roles',
   imports: [],
-  templateUrl: './admin.html',
+  templateUrl: './roles.html',
 })
-export class Admin {
+export class Roles {
 
 }

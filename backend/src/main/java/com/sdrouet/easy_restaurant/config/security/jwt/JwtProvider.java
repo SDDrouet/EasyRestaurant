@@ -1,16 +1,18 @@
 package com.sdrouet.easy_restaurant.config.security.jwt;
 
+import com.sdrouet.easy_restaurant.dto.user.UserResponse;
 import com.sdrouet.easy_restaurant.entity.RefreshToken;
 import com.sdrouet.easy_restaurant.entity.User;
+import com.sdrouet.easy_restaurant.mapper.UserMapper;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.MacAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,11 +24,11 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
     private final JwtProperties jwtProperties;
-    private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes(StandardCharsets.UTF_8));
@@ -40,6 +42,7 @@ public class JwtProvider {
         String username = authentication.getName();
         Date currentTime = new Date();
         Date expirationToken = new Date(currentTime.getTime() + jwtProperties.getExpiration());
+
         return Jwts.builder()
                 .claim("typ", "access")
                 .subject(username)
@@ -85,7 +88,7 @@ public class JwtProvider {
             if (!StringUtils.hasText(token)) return null;
             return getType(token);
         } catch (JwtException e) {
-            logger.warn("Token inválido: {}", e.getMessage());
+            log.warn("Token inválido: {}", e.getMessage());
             return null;
         }
     }
