@@ -13,7 +13,6 @@ import org.hibernate.envers.Audited;
 @Builder
 @Entity
 @Table(name = "permissions")
-@Audited
 public class Permission extends AuditableEntity {
 
     @Id

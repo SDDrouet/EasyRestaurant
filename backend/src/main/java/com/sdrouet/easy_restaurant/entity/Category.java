@@ -6,6 +6,7 @@ import java.util.Set;
 
 import lombok.*;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Getter
 @Setter
@@ -14,7 +15,6 @@ import org.hibernate.envers.Audited;
 @Builder
 @Entity
 @Table(name = "categories")
-@Audited
 public class Category extends AuditableEntity {
 
     @Id

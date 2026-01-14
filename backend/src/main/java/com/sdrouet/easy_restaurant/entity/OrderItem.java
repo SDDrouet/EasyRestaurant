@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Getter
 @Setter
@@ -13,6 +15,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "order_items")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class OrderItem {
 
     @Id

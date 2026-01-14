@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
     @GetMapping("/secure")
-    @PreAuthorize("hasAuthority('READ_PRODUCT')")
+    @PreAuthorize("hasAuthority('MANAGE_PERMISSIONS')")
     public ResponseEntity<ApiResponse<Object>> secure() {
         return ResponseEntity.ok(ApiResponse.ok("Operación correcta"));
     }

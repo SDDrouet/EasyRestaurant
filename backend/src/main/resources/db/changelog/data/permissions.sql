@@ -7,6 +7,7 @@ VALUES ('CREATE_USER', 'USER', 'CREATE'),
        ('UPDATE_ANY_USER', 'USER', 'UPDATE'),
        ('UPDATE_USER_STATUS', 'USER', 'UPDATE'),
        ('DELETE_USER', 'USER', 'DELETE'),
+       ('MANAGE_PERMISSIONS', 'PERMISSIONS', 'ALL'),
 
 
 -- Permisos de Categoría

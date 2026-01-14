@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15
+      author: STEPHEN
+      changes:
+        - sqlFile:
+            path: db/changelog/tables/revinfo.sql
+        - sqlFile:
+            path: db/changelog/tables/products_aud.sql
+        - sqlFile:
+            path: db/changelog/tables/orders_aud.sql
+        - sqlFile:
+            path: db/changelog/tables/order_items_aud.sql

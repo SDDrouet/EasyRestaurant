@@ -2,6 +2,8 @@ package com.sdrouet.easy_restaurant.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "orders")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Order {
 
     @Id

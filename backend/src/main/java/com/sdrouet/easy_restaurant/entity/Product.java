@@ -15,7 +15,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Builder
 @Entity
 @Table(name = "products")
-@Audited
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Product extends AuditableEntity {
 
     @Id
