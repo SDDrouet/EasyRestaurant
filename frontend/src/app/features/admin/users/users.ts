@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { ContentLayout } from '@layout/content-layout/content-layout';
 
 @Component({
-  selector: 'app-permissions',
+  selector: 'app-users',
   imports: [ContentLayout],
-  templateUrl: './permissions.html',
+  templateUrl: './users.html',
 })
-export class Permissions {
-
-}
+export class Users {}

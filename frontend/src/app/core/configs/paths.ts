@@ -2,8 +2,11 @@ export const PATHS = {
     LOGIN: 'login',
     HOME: 'home',
     NOT_FOUND: '**',
+    NOT_AUTHORIZED: 'unauthorized',
     ADMIN: {
-        ROLES: 'admin/roles',
-        PERMISSIONS: 'admin/permisos',
+        BASE: 'admin',
+        ROLES: 'roles',
+        PERMISSIONS: 'permissions',
+        USERS: 'users',
     }
 }

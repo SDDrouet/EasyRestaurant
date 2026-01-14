@@ -3,15 +3,16 @@
         class="absolute h-screen inset-0 bg-[url(/assets/images/panelPatern3.png)] bg-center bg-repeat opacity-30 -z-10">
     </div>
 
-    <aside class=" bg-surface-0/40 rounded-2xl m-4 mr-0 p-4 shadow-lg flex flex-col justify-between space-y-4">
-        <div class="h-full overflow-auto">
-            <!-- <p-panelMenu [model]="MAIN_NAV" class="w-full" /> -->
+    <aside class="bg-surface-0/40 rounded-2xl m-4 mr-0 p-4 shadow-lg flex flex-col justify-between space-y-4 border border-surface-100">
+        <div class="flex flex-col gap-2">
+            <app-sidebar-nav />
         </div>
+
         <div class="card flex items-center justify-center">
             <div (click)="op.toggle($event)" class="cursor-pointer" pInputText pTooltip="Cuenta">
                 <p-avatar [label]="userInitials"
-                    class="select-none mr-2 bg-surface-800 text-primary-contrast hover:scale-105 transition-transform duration-100 ease-in-out"
-                    size="xlarge" shape="circle" />
+                    class="select-none bg-surface-800 text-primary-contrast hover:scale-105 transition-transform duration-100 ease-in-out"
+                    size="large" shape="circle" />
             </div>
 
             <p-popover #op>
@@ -28,7 +29,7 @@
                     </div>
                     <div>
                         <button pButton label="Cerrar Sesión" icon="pi pi-sign-out"
-                        class="p-button-text p-button-danger" size="small" (click)="logout()"></button>
+                            class="p-button-text p-button-danger" size="small" (click)="logout()"></button>
 
                     </div>
                 </div>
@@ -37,10 +38,8 @@
         </div>
     </aside>
 
-    <main class="bg-surface-0/75 rounded-2xl w-full m-4 shadow-lg overflow-hidden">
-        <div class="overflow-auto h-full p-4">
-            <router-outlet />
-        </div>
+    <main class="w-full m-4 overflow-hidden">
+        <router-outlet />
     </main>
 
 </div>

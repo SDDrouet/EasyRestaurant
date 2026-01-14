@@ -9,7 +9,8 @@
       "@features/*": ["./src/app/features/*"],
       "@data/*": ["./src/app/data/*"],
       "@env/*": ["./src/environments/*"],
-      "@layout/*": ["./src/app/layout/*"]
+      "@layout/*": ["./src/app/layout/*"],
+      "@routes/*": ["./src/app/routes/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

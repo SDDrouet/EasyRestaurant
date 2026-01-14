@@ -7,11 +7,12 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from '@core/service/auth-service';
 import { TestService } from '@core/service/test-service';
 import { Permissions } from '@data/enums/permissions';
+import { ContentLayout } from '@layout/content-layout/content-layout';
 
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, DatePickerModule, FormsModule, PanelMenuModule],
+  imports: [ButtonModule, DatePickerModule, FormsModule, PanelMenuModule, ContentLayout],
   templateUrl: './home.html',
 })
 export class Home {
