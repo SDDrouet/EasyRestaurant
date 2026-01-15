@@ -8,12 +8,12 @@ import { MenuItem } from 'primeng/api';
     imports: [RouterOutlet, MenubarModule],
     template: `
     <div class="flex flex-col h-full w-full">
-      <div class="mb-4">
-        <p-menubar [model]="menuItems()" class="border border-surface-100 bg-surface-0/75"/>
+      <div >
+        <p-menubar [model]="menuItems()" class="rounded-2xl mb-1 border border-surface-100 bg-surface-0/75"/>
       </div>
-      <main class="overflow-hidden">
-            <router-outlet />
-    </main>
+      <main class="overflow-hidden h-full">
+        <router-outlet />
+      </main>
     </div>
   `,
 })

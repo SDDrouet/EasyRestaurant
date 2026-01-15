@@ -20,10 +20,10 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    drop-first: true
+    drop-first: false
 
   jwt:
     secret: a-very-long-super-secure-secret-key-with-at-least-64-characters-!!!!
-    expiration: 25000 # 30 SEG Expiration
+    expiration: 300000 # 30 SEG Expiration
     refresh-token-expiration: 900000 # 15 minExpiration
 

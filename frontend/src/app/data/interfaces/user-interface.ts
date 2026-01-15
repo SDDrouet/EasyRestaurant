@@ -6,3 +6,11 @@ export interface User {
         lastName: string;
         isActive: boolean;
 }
+
+export interface RegisterUser {
+        username: string;
+        email: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+}

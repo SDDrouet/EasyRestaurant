@@ -100,10 +100,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @AllowedSortFields({"id", "username", "email", "firstName", "lastName"})
     public Page<User> getUsers(Pageable pageable, String username, String email, String name) {
         Specification<User> spec = Specification.unrestricted();
-        spec.and(UserSpecs.usernameLike(username))
+        spec = spec.and(UserSpecs.usernameLike(username))
                 .and(UserSpecs.emailLike(email))
                 .and(UserSpecs.fullNameLike(name));
 

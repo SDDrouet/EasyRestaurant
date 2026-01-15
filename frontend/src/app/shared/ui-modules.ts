@@ -8,6 +8,11 @@ import { MessageModule } from 'primeng/message';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { TooltipModule } from 'primeng/tooltip';
 
 // Agrupas todo en un array constante
 export const SHARED_UI_MODULES = [
@@ -22,4 +27,9 @@ export const SHARED_UI_MODULES = [
     ReactiveFormsModule,
     NgOptimizedImage,
     AutoFocusModule,
+    TableModule,
+    TagModule,
+    IconFieldModule,
+    InputIconModule,
+    TooltipModule,
 ] as const;

@@ -8,7 +8,7 @@ public class UserSpecs {
     public static Specification<User> usernameLike(String username) {
         return (root, query, cb) -> {
             if (username == null || username.isBlank()) {
-                return cb.conjunction();
+                return null;
             }
             return cb.like(
                     cb.lower(root.get("username")),
@@ -20,7 +20,7 @@ public class UserSpecs {
     public static Specification<User> emailLike(String email) {
         return (root, query, cb) -> {
             if (email == null || email.isBlank()) {
-                return cb.conjunction();
+                return null;
             }
             return cb.like(
                     cb.lower(root.get("email")),
@@ -32,7 +32,7 @@ public class UserSpecs {
     public static Specification<User> fullNameLike(String name) {
         return (root, query, cb) -> {
             if (name == null || name.isBlank()) {
-                return cb.conjunction();
+                return null;
             }
 
             String like = "%" + name.toLowerCase() + "%";
