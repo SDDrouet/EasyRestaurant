@@ -1,6 +1,6 @@
-import { Component, input, output, signal, OnInit, OnDestroy, effect } from '@angular/core';
+import { Component, input, output, signal, OnInit, OnDestroy, effect, ViewChild } from '@angular/core';
 import { SHARED_UI_MODULES } from '@shared/ui-modules';
-import { TableLazyLoadEvent } from 'primeng/table';
+import { Table, TableLazyLoadEvent } from 'primeng/table';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 
 export interface TableColumn<T> {
@@ -61,6 +61,8 @@ export class DataTable<T> implements OnInit, OnDestroy {
   config = input.required<TableConfig<T>>();
   totalRecords = input<number>(0);
   loading = input<boolean>(false);
+  scrollable = input<boolean>(true);
+  scrollHeight = input<string>('calc(100vh - 260px)');
 
   // Outputs
   lazyLoad = output<TableLazyLoadParams>();
@@ -74,6 +76,8 @@ export class DataTable<T> implements OnInit, OnDestroy {
   pageSize = signal<number>(10);
   sortField = signal<string>('');
   sortOrder = signal<'ASC' | 'DESC'>('ASC');
+
+  @ViewChild('dt') table!: Table;
 
   ngOnInit(): void {
     // Configurar pageSize inicial desde config
@@ -142,6 +146,18 @@ export class DataTable<T> implements OnInit, OnDestroy {
     return this.filters()[field] || '';
   }
 
+  clearFilters(): void {
+    this.filters.set({});
+    this.sortField.set('');
+    this.sortOrder.set('ASC');
+    this.currentPage.set(0);
+    this.table.reset();
+  }
+
+  someColumnIsFilterable(): boolean {
+    return this.config().columns.some((col) => col.filterable);
+  }
+
   getCellValue(row: T, column: TableColumn<T>): any {
     return (row as any)[column.field];
   }
@@ -176,7 +192,7 @@ export class DataTable<T> implements OnInit, OnDestroy {
 
   getButtonClass(color: string): string {
     const colorMap: Record<string, string> = {
-      blue: 'text-blue-600 hover:bg-blue-50',
+      blue: 'text-cyan-600 hover:bg-cyan-50',
       amber: 'text-amber-600 hover:bg-amber-50',
       red: 'text-red-600 hover:bg-red-50',
       green: 'text-green-600 hover:bg-green-50',

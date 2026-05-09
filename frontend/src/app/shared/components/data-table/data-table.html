@@ -1,86 +1,77 @@
 <div>
-    <p-table
-        [value]="data()"
-        [lazy]="config().pageable !== false"
-        [paginator]="config().pageable !== false"
-        [rows]="pageSize()"
-        [totalRecords]="totalRecords()"
-        [loading]="loading()"
-        [showCurrentPageReport]="config().pageable !== false"
+    @if (someColumnIsFilterable()) {
+    <p-button label="Limpiar Filtros" icon="pi pi-filter-slash" size="small" (onClick)="clearFilters()"
+        styleClass="p-button-outlined p-button-secondary"></p-button>
+    }
+    <p-table #dt [value]="data()" [lazy]="config().pageable !== false" [paginator]="config().pageable !== false"
+        [rows]="pageSize()" [scrollable]="scrollable()" [scrollHeight]="scrollHeight()" [totalRecords]="totalRecords()"
+        [loading]="loading()" [showCurrentPageReport]="config().pageable !== false"
         [currentPageReportTemplate]="'Mostrando {first} a {last} de {totalRecords} registros'"
-        [rowsPerPageOptions]="config().pageSizeOptions || [10, 25, 50, 100]"
-        (onLazyLoad)="onLazyLoad($event)"
+        [rowsPerPageOptions]="config().pageSizeOptions || [10, 25, 50, 100]" (onLazyLoad)="onLazyLoad($event)"
         class="p-datatable-sm p-datatable-striped p-datatable-gridlines p-datatable-responsive"
-        [tableStyle]="{ 'min-width': '50rem' }"
-    >
+        [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr class="rounded-2xl">
                 @for (column of config().columns; track column.field) {
-                    <th [pSortableColumn]="column.sortable !== false ? getFieldAsString(column.field) : undefined" [style.width]="column.width">
-                        <div class="flex flex-col gap-1">
-                            <div class="flex items-center gap-1">
-                                <span class="font-semibold text-xs">{{ column.header }}</span>
-                                @if (column.sortable !== false) {
-                                    <p-sortIcon [field]="getFieldAsString(column.field)" />
-                                }
-                            </div>
-                            @if (column.filterable) {
-                                <input
-                                    pInputText
-                                    type="text"
-                                    [value]="getFilterValue(getFieldAsString(column.field))"
-                                    (input)="updateFilter(getFieldAsString(column.field), $any($event.target).value)"
-                                    (click)="$event.stopPropagation()"
-                                    placeholder="Buscar..."
-                                    class="w-full text-xs p-1 h-7"
-                                />
+                <th sorted="dsc" [pSortableColumn]="column.sortable !== false ? getFieldAsString(column.field) : undefined"
+                    [style.width]="column.width">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-1">
+                            <span class="font-semibold text-xs">{{ column.header }}</span>
+                            @if (column.sortable !== false) {
+                            <p-sortIcon [field]="getFieldAsString(column.field)" />
                             }
                         </div>
-                    </th>
+                        @if (column.filterable) {
+                        <input pInputText type="text" [value]="getFilterValue(getFieldAsString(column.field))"
+                            (input)="updateFilter(getFieldAsString(column.field), $any($event.target).value)"
+                            (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+                            placeholder="Buscar..." class="w-full text-xs p-1 h-7" />
+                        }
+                    </div>
+                </th>
                 }
                 @if (config().actions && config().actions!.length > 0) {
-                    <th style="width: 120px">
-                        <span class="font-semibold text-xs">Acciones</span>
-                    </th>
+                <th style="width: 120px">
+                    <span class="font-semibold text-xs">Acciones</span>
+                </th>
                 }
             </tr>
         </ng-template>
         <ng-template #body let-row>
             <tr class="text-sm">
                 @for (column of config().columns; track column.field) {
-                    <td>
-                        @if (column.type === 'badge' && column.badgeConfig) {
-                            <span [class]="getBadgeClass(column, row) + ' inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded'">
-                                @if (getBadgeIcon(column, row)) {
-                                    <i [class]="'pi ' + getBadgeIcon(column, row) + ' text-xs'"></i>
-                                }
-                                {{ getBadgeLabel(column, row) }}
-                            </span>
-                        } @else if (column.type === 'custom' && column.customTemplate) {
-                            <span [innerHTML]="column.customTemplate(row)"></span>
-                        } @else {
-                            {{ getCellValue(row, column) }}
+                <td>
+                    @if (column.type === 'badge' && column.badgeConfig) {
+                    <span
+                        [class]="getBadgeClass(column, row) + ' inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded'">
+                        @if (getBadgeIcon(column, row)) {
+                        <i [class]="'pi ' + getBadgeIcon(column, row) + ' text-xs'"></i>
                         }
-                    </td>
+                        {{ getBadgeLabel(column, row) }}
+                    </span>
+                    } @else if (column.type === 'custom' && column.customTemplate) {
+                    <span [innerHTML]="column.customTemplate(row)"></span>
+                    } @else {
+                    {{ getCellValue(row, column) }}
+                    }
+                </td>
                 }
                 @if (config().actions && config().actions!.length > 0) {
-                    <td>
-                        <div class="flex gap-1">
-                            @for (action of config().actions; track action.icon) {
-                                @let actionToShow = getActionToShow(action, row);
-                                @if (actionToShow) {
-                                    <button
-                                        (click)="executeAction(action, row)"
-                                        [class]="'p-1.5 rounded transition-colors ' + getButtonClass(actionToShow.color)"
-                                        [pTooltip]="actionToShow.tooltip"
-                                        tooltipPosition="top"
-                                    >
-                                        <i [class]="'pi ' + actionToShow.icon + ' text-sm'"></i>
-                                    </button>
-                                }
-                            }
-                        </div>
-                    </td>
+                <td>
+                    <div class="flex gap-1">
+                        @for (action of config().actions; track action.icon) {
+                        @let actionToShow = getActionToShow(action, row);
+                        @if (actionToShow) {
+                        <button (click)="executeAction(action, row)"
+                            [class]="'p-1.5 hover:cursor-pointer hover:scale-105 rounded-full transition-all transform duration-100 ease-in-out ' + getButtonClass(actionToShow.color)"
+                            [pTooltip]="actionToShow.tooltip" tooltipPosition="top">
+                            <i [class]="'pi ' + actionToShow.icon + ' text-sm'"></i>
+                        </button>
+                        }
+                        }
+                    </div>
+                </td>
                 }
             </tr>
         </ng-template>

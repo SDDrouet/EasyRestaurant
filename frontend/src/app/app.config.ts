@@ -7,11 +7,12 @@ import ThemePresent from '../themePresent';
 import { es } from "@core/configs/es.json"
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from '@core/interceptors/auth-interceptor';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         MessageService,
+        ConfirmationService,
         provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
         provideBrowserGlobalErrorListeners(),
         provideRouter(routes),

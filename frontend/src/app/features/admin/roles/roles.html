@@ -1,3 +1,53 @@
 <app-content-layout>
-  <p>roles works!</p>
+    <div class="mb-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Gestión de Roles</h1>
+        <p-button
+            label="Crear Rol"
+            icon="pi pi-plus"
+            (onClick)="createRole()">
+        </p-button>
+    </div>
+
+    <app-data-table
+        [data]="roles()"
+        [config]="tableConfig()"
+        [totalRecords]="totalRecords()"
+        [loading]="loading()"
+        (lazyLoad)="onLazyLoad($event)"
+    />
+
+    <app-view-role-dialog
+        [(visible)]="viewDialogVisible"
+        [role]="selectedRole()"
+        (closed)="closeViewDialog()">
+    </app-view-role-dialog>
+
+    <app-edit-role-dialog
+        [(visible)]="editDialogVisible"
+        [role]="selectedRole()"
+        (saved)="saveEditRole($event)"
+        (closed)="closeEditDialog()">
+    </app-edit-role-dialog>
+
+    <app-create-role-dialog
+        [(visible)]="createDialogVisible"
+        (saved)="saveCreateRole($event)"
+        (closed)="closeCreateDialog()">
+    </app-create-role-dialog>
+
+    <app-assign-permissions-dialog
+        [(visible)]="assignPermissionsDialogVisible"
+        [role]="selectedRole()"
+        (saved)="saveAssignPermissions($event)"
+        (closed)="closeAssignPermissionsDialog()">
+    </app-assign-permissions-dialog>
+
+    <app-assign-role-to-user-dialog
+        [(visible)]="assignRoleToUserDialogVisible"
+        [role]="selectedRole()"
+        (saved)="saveAssignRoleToUser($event)"
+        (closed)="closeAssignRoleToUserDialog()">
+    </app-assign-role-to-user-dialog>
 </app-content-layout>
+
+<p-confirmdialog />

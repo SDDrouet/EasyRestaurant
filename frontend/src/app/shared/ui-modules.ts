@@ -13,6 +13,9 @@ import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 // Agrupas todo en un array constante
 export const SHARED_UI_MODULES = [
@@ -32,4 +35,7 @@ export const SHARED_UI_MODULES = [
     IconFieldModule,
     InputIconModule,
     TooltipModule,
+    DialogModule,
+    ToastModule,
+    ConfirmDialogModule,
 ] as const;

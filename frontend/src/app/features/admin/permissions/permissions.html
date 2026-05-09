@@ -1,3 +1,39 @@
 <app-content-layout>
-  <p>permissions works!</p>
+    <div class="mb-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Gestión de Permisos</h1>
+        <p-button
+            label="Crear Permiso"
+            icon="pi pi-plus"
+            (onClick)="createPermission()">
+        </p-button>
+    </div>
+
+    <app-data-table
+        [data]="permissions()"
+        [config]="tableConfig()"
+        [totalRecords]="totalRecords()"
+        [loading]="loading()"
+        (lazyLoad)="onLazyLoad($event)"
+    />
+
+    <app-view-permission-dialog
+        [(visible)]="viewDialogVisible"
+        [permission]="selectedPermission()"
+        (closed)="closeViewDialog()">
+    </app-view-permission-dialog>
+
+    <app-edit-permission-dialog
+        [(visible)]="editDialogVisible"
+        [permission]="selectedPermission()"
+        (saved)="saveEditPermission($event)"
+        (closed)="closeEditDialog()">
+    </app-edit-permission-dialog>
+
+    <app-create-permission-dialog
+        [(visible)]="createDialogVisible"
+        (saved)="saveCreatePermission($event)"
+        (closed)="closeCreateDialog()">
+    </app-create-permission-dialog>
 </app-content-layout>
+
+<p-confirmdialog />
