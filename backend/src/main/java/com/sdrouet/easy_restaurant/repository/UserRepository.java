@@ -21,6 +21,14 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
 
+    @Query("""
+    SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END
+    FROM User u
+    JOIN u.roles r
+    WHERE r.id = :roleId
+    """)
+    boolean existsUserAssignedToRole(@Param("roleId") Long roleId);
+
     @Modifying
     @Query("UPDATE User u SET u.lastLogin = CURRENT_TIMESTAMP where u.id = :userId")
     void updateLastLoginById(Long userId);

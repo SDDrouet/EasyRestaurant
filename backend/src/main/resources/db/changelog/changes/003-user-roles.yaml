@@ -30,5 +30,3 @@ databaseChangeLog:
             baseColumnNames: role_id
             referencedTableName: roles
             referencedColumnNames: id
-            onDelete: CASCADE
-            onUpdate: CASCADE

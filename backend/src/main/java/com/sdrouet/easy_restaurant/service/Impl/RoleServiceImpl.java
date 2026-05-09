@@ -9,6 +9,7 @@ import com.sdrouet.easy_restaurant.entity.Permission;
 import com.sdrouet.easy_restaurant.entity.Role;
 import com.sdrouet.easy_restaurant.entity.User;
 import com.sdrouet.easy_restaurant.exception.ResourceAlreadyExistsException;
+import com.sdrouet.easy_restaurant.exception.ResourceInUseException;
 import com.sdrouet.easy_restaurant.exception.ResourceNotFoundException;
 import com.sdrouet.easy_restaurant.mapper.RoleMapper;
 import com.sdrouet.easy_restaurant.repository.PermissionRepository;
@@ -85,6 +86,9 @@ public class RoleServiceImpl implements RoleService {
     public void delete(Long id) {
         if (!roleRepository.existsById(id)) {
             throw new ResourceNotFoundException("Role not found with id: " + id);
+        }
+        if (userRepository.existsUserAssignedToRole(id)) {
+            throw new ResourceInUseException("No se puede eliminar el rol porque está asignado a uno o más usuarios");
         }
         roleRepository.deleteById(id);
     }
